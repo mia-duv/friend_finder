@@ -50,7 +50,7 @@
                         <hr>
 
                         <h3>I am someone who, is outgoing and socialble.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q1">
+                        <select class="chosen-select" id="q1">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -61,7 +61,7 @@
 
 
                         <h3>I am someone who, is compassinate and has a soft heart.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q2">
+                        <select class="chosen-select" id="q2">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -72,7 +72,7 @@
 
 
                         <h3>I am someone who, tends to be organized.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q3">
+                        <select class="chosen-select" id="q3">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -83,7 +83,7 @@
 
 
                         <h3>I am someone who, tends to be lazy.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q4">
+                        <select class="chosen-select" id="q4">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -94,7 +94,7 @@
 
 
                         <h3>I am someone who, is relaxed and handles stress well.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q5">
+                        <select class="chosen-select" id="q5">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -104,7 +104,7 @@
                         </select>
 
                         <h3>I am someone who,is moody, and has mood swings.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q6">
+                        <select class="chosen-select" id="q6">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -114,7 +114,7 @@
                         </select>
 
                         <h3>I am someone who, tends to be quiet.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q7">
+                        <select class="chosen-select" id="q7">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -124,7 +124,7 @@
                         </select>
 
                         <h3>I am someone who, is fascinated by art, music, or literature.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q8">
+                        <select class="chosen-select" id="q8">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -134,7 +134,7 @@
                         </select>
 
                         <h3>I am someone who, is less active than other people.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q9">
+                        <select class="chosen-select" id="q9">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -144,7 +144,7 @@
                         </select>
 
                         <h3>I am someone who, has a forgiving nature.</h3>
-                        <select data-placeholder="" class="chosen-select" id="q10">
+                        <select class="chosen-select" id="q10">
                             <option value=""></option>
                             <option selected="selected" value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
@@ -164,6 +164,39 @@
 
             </div>
         </div>
+        <!-- jquery -->
+        <script type="text/javascript">
+         $("#submit").on("click", function(){
+    event.preventDefault();
+  
+      if( ($('#name').val().trim() !== "") && ($('#photo').val().trim() !== "") ) {
+          var userData = {
+              name: $("#name").val(),
+              photo: $("#photo").val(),
+              scores: [$("#q1").val(), 
+                       $("#q2").val(), 
+                       $("#q3").val(), 
+                       $("#q4").val(), 
+                       $("#q5").val(), 
+                       $("#q6").val(), 
+                       $("#q7").val(), 
+                       $("#q8").val(), 
+                       $("#q9").val(), 
+                       $("#q10").val(), ]
+          };
+        
+    $.post("/api/friends", userData, function(data) {
+      $("#match-name").text(data.name);
+      $("#match-img").attr("src", data.photo);
+      $("#results-modal").modal("toggle");
+  })
+ } 
+        else  {
+      alert("Fill out required fields")
+  }
 
+    });
+
+        </script>
 </body>
 </html>
